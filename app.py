@@ -28,10 +28,10 @@ def listar_tarefas():
         # Converter cada linha em um dicionário explicitamente
         tarefas_list = [
             {
-                'id': tarefa['id'],
-                'titulo': tarefa['titulo'],
-                'descricao': tarefa['descricao'],
-                'concluida': bool(tarefa['concluida'])
+                'id': tarefa[0],
+                'titulo': tarefa[1],
+                'descricao': tarefa[2],
+                'concluida': bool(tarefa[3])
             } for tarefa in tarefas
         ]
         return jsonify(tarefas_list), 200
