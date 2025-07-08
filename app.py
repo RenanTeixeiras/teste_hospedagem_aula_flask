@@ -25,7 +25,16 @@ CORS(app)
 def listar_tarefas():
     with get_db() as conn:
         tarefas = conn.execute('SELECT * FROM tarefas').fetchall()
-        return jsonify([dict(tarefa) for tarefa in tarefas]), 200
+        # Converter cada linha em um dicionário explicitamente
+        tarefas_list = [
+            {
+                'id': tarefa['id'],
+                'titulo': tarefa['titulo'],
+                'descricao': tarefa['descricao'],
+                'concluida': bool(tarefa['concluida'])
+            } for tarefa in tarefas
+        ]
+        return jsonify(tarefas_list), 200
     
 @app.route('/tarefas', methods=['POST'])
 def adicionar_tarefa():
